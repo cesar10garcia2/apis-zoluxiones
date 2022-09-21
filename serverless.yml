@@ -1,0 +1,45 @@
+
+service: apis-zoluxiones
+
+plugins:
+  - serverless-offline
+
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+
+functions:
+  getFilmModel:
+    handler: src/films/handler.filmModel
+    events:
+      - http:
+          method: GET
+          path: /film
+          cors: true
+      
+      - http:
+          method: GET
+          path: /film/{id}
+          cors: true
+          request:
+            parameters:
+              paths:
+                id: false
+
+  getPeople:
+    handler: src/people/handler.findAllPeople
+    events:
+      - http:
+          method: GET
+          path: /people
+          cors: true
+  
+  createPeople:
+    handler: src/people/handler.createPeople
+    events:
+      - http:
+          method: POST
+          path: /people
+          cors: true
